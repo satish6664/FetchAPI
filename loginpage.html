@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Authentication</title>
+</head>
+<body>
+  <h1>User Registration</h1>
+  <form id="registrationForm">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required><br><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br><br>
+    <button type="submit">Register</button>
+  </form>
+
+  <hr>
+
+  <h1>User Login</h1>
+  <form id="loginForm">
+    <label for="loginUsername">Username:</label>
+    <input type="text" id="loginUsername" name="loginUsername" required><br><br>
+    <label for="loginPassword">Password:</label>
+    <input type="password" id="loginPassword" name="loginPassword" required><br><br>
+    <button type="submit">Login</button>
+  </form>
+
+  <script>
+    // Array to store user objects
+    let users = [];
+
+    document.getElementById('registrationForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      // Check if user already exists
+      if (users.some(user => user.username === username)) {
+        alert('User already exists!');
+      } else {
+        // Add new user to users array
+        users.push({ username, password });
+        alert('User registered successfully!');
+      }
+      this.reset();
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const loginUsername = document.getElementById('loginUsername').value;
+      const loginPassword = document.getElementById('loginPassword').value;
+
+      // Find user by username
+      const user = users.find(user => user.username === loginUsername);
+
+      if (user && user.password === loginPassword) {
+        alert('Login successful!');
+      } else {
+        alert('Invalid username or password!');
+      }
+      this.reset();
+    });
+  </script>
+</body>
+</html>
